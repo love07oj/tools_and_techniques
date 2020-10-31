@@ -74,13 +74,13 @@ the first three ```00:0c:29 ``` are the identifiers , they are used to tell the 
 
 ### The OSI Model
 
-1 **P** physical - data cables, cat6
-2 **D** data - switching, MAC addresses
-3 **N** network - IP addresses, routing
-4 **T** transport - TCP/UDP
-5 **S** Session - session management
-6 **P** presentation - WMV, JPEG, MOV
-7 **A** application - HTTP, SMTP
+* 1 **P** physical - data cables, cat6
+* 2 **D** data - switching, MAC addresses
+* 3 **N** network - IP addresses, routing
+* 4 **T** transport - TCP/UDP
+* 5 **S** Session - session management
+* 6 **P** presentation - WMV, JPEG, MOV
+* 7 **A** application - HTTP, SMTP
 
 
 ### Subnetting 
