@@ -52,6 +52,77 @@ the first three ```00:0c:29 ``` are the identifiers , they are used to tell the 
 
 **TCP**
 
+* FTP(21)
+* SSH(22)
+* Telnet(23)
+* SMTP(25)
+* DNS(53)
+* HTTP(80)/HTTPS(443)
+* POP3(110)
+* SMB(139+445)
+* IMAP(143)
+
+
+**UDP**
+
+* DNS(53)
+* DHCP(67,68)
+* TFTP(69)
+* SNMP(161)
+
+
+
+### The OSI Model
+
+1 **P** physical - data cables, cat6
+2 **D** data - switching, MAC addresses
+3 **N** network - IP addresses, routing
+4 **T** transport - TCP/UDP
+5 **S** Session - session management
+6 **P** presentation - WMV, JPEG, MOV
+7 **A** application - HTTP, SMTP
+
+
+### Subnetting 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
