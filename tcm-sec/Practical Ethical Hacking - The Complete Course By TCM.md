@@ -86,8 +86,10 @@ the first three ```00:0c:29 ``` are the identifiers , they are used to tell the 
 ### Subnetting 
 
 
+[Subnet guide](https://github.com/love07oj/tools_and_techniques/edit/main/tcm-sec/Subnet-Guide.xlsx)
 
 
+[example](https://www.youtube.com/watch?v=ZxAwQB8TZsM)
 
 
 
