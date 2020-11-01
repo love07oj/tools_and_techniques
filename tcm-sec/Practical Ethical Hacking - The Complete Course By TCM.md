@@ -257,6 +257,252 @@ print(" my name is" + name + "and I am " + str(age) + " years old ")
 
 age +=1
 print(age)
+```
+
+### Functions
+
+
+```python3
+def who_am_i():  #this is a function
+    name = "love07oj"
+    age = 30  
+    print(" my name is" + name + "and I am " + str(age) + " years old ")
+who_am_i()
+
+#adding parameters
+def add_one_hundred(num):
+      print(num+100)
+add_one_hundred(100)      
+
+#multiple parameters
+
+def add(x,y):
+      pritn(x,y)
+add(7,7)
+
+def multiply(x,y):
+      return x * y
+print(multiply(7,7))
+
+```
+
+### Boolean Expressions
+
+
+```python3
+#(true or false)
+print("boolean expressioms:")
+
+bool1 = True
+bool2 = 3*3 ==9
+bool3 = False
+bool4 = 3*3 !=9
+print(bool1,bool2,bool3,bool4)
+print(type(bool1))
+```
+
+
+### Relational and Boolean Operators
+
+
+```python3
+greter_than = 7 > 5
+less_than = 5 > 7
+greater_than_equal_to = 7 >=7
+less_than_equal_to = 7 <= 7
+
+test_and = (7 > 5) and (5 < 7) #True
+test_and2 = (7 > 5) and (5 > 7) #False
+test_or = (7 > 5) and (5 < 7) #True
+test_or2 = (7 > 5) and (5 > 7) #True
+
+test_not = not True #False
+
+```
+
+### Conditional Statements
+
+
+```python3
+def drink(money):
+        if money >= 2:
+                return "you got a drink!"
+         else:
+                return "NO drink for you!"
+print(drink(3))
+print(drink(1))
+
+def alcohol(age,money):
+    if(age >= 21) and (money >= 5):
+        return "we get a drink"
+    elif (age >= 21) and (money < 5):
+        return "come back with more money"
+    elif (age < 21) and (money >=5):
+        return "Nice try kid "
+    elif:
+         return "you are too poor and too young"
+print(alcohol(21,5))
+print(alcohol(21,4))
+print(alcohol(20,4))
+print(alcohol(20,5))
+
+```
+
+### Lists
+
+
+* these are data structures
+* everything inside them are called item
+* they have brackets []
+
+```python3 
+movies = ["abcd","wxyz","ijkl"]
+print(movies[0])
+print(movies[0:2]) #stop after 2nd item
+print(movies[0:]) #print all list items
+print(movies[:2] #anyting before 2nd item
+print(movies[-1] #last item of list 
+print(len(movies)
+movies.append("qwer")
+print(movies)
+
+movies.pop() #delete from last 
+print(movies)
+
+movies.pop(0) #delete from position 
+print(movies)
+```
+
+### Tuples
+
+* they are imutable (cant be changed)
+
+```python3
+grades = ("a", "b", "c", "d", "f")
+print(grades[1])
+```
+
+### Looping
+
+
+```python3
+
+vegetable = ["cucumber", "spanish", "cabbage"]
+for x in vegitables:
+    print(x)
+
+i = 1
+
+while  i < 10:
+      print(i)
+      i += 1
+```
+
+
+### Importing Modules
+
+```python3
+import sys #system function and parameters
+import datetime import datetime as dt #import with alias
+
+print(sys.version)
+print(dt.now())
+
+```
+
+### Advanced Strings
+
+
+```python3 
+
+my_name = "Heath"
+print(my_name[0])
+print(my_name[-1])
+
+sentence = "This is a sentence."
+print(sentence[:4])
+
+print(sentence.split())
+
+sentence_split = sentence.split()
+sentence_join = ' '.join(sentence_split)
+print(sentence_join)
+
+quote = "He said, \"give me all your money\""  #chracter escaping 
+print(quote)
+
+too_much_space = "                      hello                        "
+print(too_much_space.strip())
+
+print('A' in "Apple") #does A is there in word apple
+
+letter = "A"
+word = "Apple"
+print(letter.lower() in word.lower()) 
+
+movie = "The Hangover"
+print("My favourite movie is {}.".format(movie))
+
+```
+
+### Dictionaries
+
+
+```python3
+drink = {"white Russian": 7, "old Fashion": 10, "Lemon Soda": 8}
+print(drink)
+
+employees = {"Finance": ["Bob", "Linda", "Tina"], "IT": ["Gene", "Louise", "Teddy"], "HR":["Jimmy","Mort"]}
+print(employees)
+employees['Legal']=["Mr. Frond"] #add new key:value pair
+print(employees)
+
+employees.update({"Sales":["Andie","Oilie"]}) #add new key:value pair
+print(employees)
+```
+
+
+### Sockets
+
+
+```python3
+#!/bin/python3
+
+import socket
+
+HOST = "127.0.0.1"
+PORT = 7777
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect((HOST,PORT))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
