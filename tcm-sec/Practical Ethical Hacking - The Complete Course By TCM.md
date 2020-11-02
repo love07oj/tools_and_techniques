@@ -663,6 +663,67 @@ https://medium.com/@obikag/how-to-get-kioptrix-working-on-virtualbox-an-oscp-sto
 
 ### Scanning with Nmap
 
+```netdiscover -r 192.168.57.0/24 ``` : To discover all the machines running on the same subnet
+
+
+```nmap -T4 -p- -A 192.168.57.134```
+
+* -T4 for speed 
+* -p- for all ports, if we dont use this flag it scan for top 1000 ports
+* -A for everything 
+* -sS stealth scan
+* -sV service version
+* -sU for UDP port scan
+* -sC script scanning
+* -O os detection
+
+
+###  Enumerating HTTP and HTTPS 
+
+* if we see a website just visit and intercept the request through burpsuite
+* if there is default server page , are there other default directory running ???
+* look for information disclosure like server name
+
+
+* **Nikto**
+
+  * it is a web vulnerability scanner
+  * ```nikto -h http://192.168.57.14 ```
+
+* **Dirbuster**
+
+  
+
+
+* **gobuster**
+
+* **dirb**
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
