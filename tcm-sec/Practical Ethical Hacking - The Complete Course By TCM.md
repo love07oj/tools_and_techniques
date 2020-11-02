@@ -478,38 +478,190 @@ s.connect((HOST,PORT))
 ```
 
 
+### Building a Port Scanner
+
+
+```python3
+import sys
+import socket
+from datetime import datetime
+
+
+#Define our target
+
+if len(sys.argv) == 2:
+      target = socket.gethostbyname(sys.argv[1]) #translate hostname to IPv4
+       
+else:
+      print("Invalid amout of arguments")
+      print("Syntax: python3 scanner.py <ip>")
+
+#Add a pretty banner
+print("-" * 50)
+print("Scanning target" +target)
+print("Time started:"+str(datetime.now()))
+print("-" * 50)
+
+try:
+    for port in range(50,85):
+          s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+          socket.setdefaulttimeout(1)
+          result = s.connect_ex((target,port)) #returns an error indiactor
+          if result == 0:
+              print("Port {} is open".format{port})
+          s.close()
+          
+except KeyboardInterrupt:
+        print("\nExiting program")
+        sys.exit()
+
+except socket.gaierror:
+        print("Hostname could not be resolved")
+        sys.exit()
+        
+except socket.error:
+        print("Could'nt connect to server")
+        sys.exit()
+        
+
+```
+
+
+## The Five Stages of Ethical Hacking
+
+**1. Reconnaissance**
+
+* Active
+* Passive
+
+**2. Scanning & Enumeration**
+
+* Nmap, Nessus, Nikto, etc
+
+**3. Gaining Access**
+ 
+ * ("Exploitation")
+ 
+ **4. Maintaing Access**
+ 
+ **5. Covering Tracks**
+ 
+ 
+
+## Information Gathering (Reconnaissance)
+
+
+### Passive Reconnaissance Overview
+
+* **Physical**
+
+* **Social**
+
+* **Web/Host**
+
+  * Target Validation 
+
+    WHOIS, nslookup, dnsrecon
+  
+  * Finding Subdomains
+
+    Google Fu, dig, Nmap, Sublist3r. Bluto, crt.sh, etc.
+  
+  * Fingerprinting 
+  
+    Nmap, Wappalyzer, WhatWeb, BuiltWith, Netcat
+  
+  * Data Breaches
+
+    HaveIBeenPwned, Breach-Parse, WeLeakInfo
+  
+
+
+### Identifying Our Target
+
+
+always stay in scope
+
+
+### Email Gathering with Hunter.io
+
+* it is a domain search
+
+* we can get 20 search a month with free feature
+
+* it tell us about the most common pattern of mail
+
+
+### Gathering Breached Credentials with Breach-Parse
+
+
+### Utilizing theharvester
+
+```theharvester -d tesla.com -l 500 -b google ```
+
+
+### Hunting Subdomains 
+
+
+* ```apt install sublist3t ``` : use to list subdomains
+  
+  always use -t flag for thred
+
+* crt.sh : this site is used to list the certificate of the sudomains 
+
+* owasp amass
+
+* httprobe : check what website is alive or not
+
+### Identifying Website Technologies
+
+* builtwith.com 
+  
+  * look for framworks 
+
+* waapalyzer (add-on for firefox)
+
+* whatweb
+
+  ```whatweb https://tesla.com ```
+  
+  
+### Information Gathering with Burp Suite
+
+* it is use to intercept packets 
+
+* target tab tells us about the packets we intercept
+
+
+### Google Fu
+
+* google search operators
+
+* site:tesla.com -www
+
+* filetype:.docx, .pdf
+
+###  Utilizing Social Media
 
 
 
+## Scanning & Enumeration
 
 
+### Installing Kioptrix 
+
+* look for Kioptrix level 1
+
+* look for abatchy's blog : for a good OSCP guide
+
+* For people who uses VirtualBox: 
+
+https://medium.com/@obikag/how-to-get-kioptrix-working-on-virtualbox-an-oscp-story-c824baf83da1
+
+* set network adapter as NAT 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### Scanning with Nmap
 
 
 
