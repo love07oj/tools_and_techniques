@@ -119,6 +119,57 @@ shared folders | enables users to search for shared folders based on properties
   * 16 GB RAM
 * I don't meet the requirements. what now?
 
+### Downloading Necessary ISOs
+
+* search for microsoft evaluation center
+
+* checkout the latest product 
+   * download windows 10 enterprise and windows server evaluations ISO
+  
+  
+### Setting Up the Domain Controllers
+
+###  Setting Up the User Machines
+
+### Setting Up Users, Groups, and Policies
+
+### Joining Our Machines to the Domain
+
+
+## 
+   
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
