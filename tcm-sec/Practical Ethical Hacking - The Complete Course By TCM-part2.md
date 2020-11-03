@@ -112,11 +112,11 @@ shared folders | enables users to search for shared folders based on properties
 ### Lab Overview and Requirements
 
 * Lab 
- * 1 windows server 2019
- * 2 Windows 10 Enterprise
+  * 1 windows server 2019
+  * 2 Windows 10 Enterprise
 * Requirements (minimum)
- * 60 GB Disk Space
- * 16 GB RAM
+  * 60 GB Disk Space
+  * 16 GB RAM
 * I don't meet the requirements. what now?
 
 
