@@ -66,20 +66,58 @@
   * By default create a two-way transitive trust with other domains
 
 
+**Forest**
+
+* a forest is a collection of one or more domain tree
+
+* Forests:
+ * share a comman schema
+ * share a common configuration partition
+ * share a common global catlog to enable searching 
+ * enable trusts between all domain in the forest
+ * shares the enterprise admins and schema admins groups
+ 
+**Organizational Units (Ous)
+
+* Ous are AD containers that can contain users, groups, computers, and other OUs
 
 
+**Trusts**
+
+* trust provide a mechanism for users to gain access to resources in other domain
+
+Types | Description 
+------|------------
+Directional |  the trust direction flows form trusting domains to trusted domain
+Transitive | the trust relationship is extended beyound a two-domain trust to include other trusted domains
+
+* all domains in a forest trust all other domains in the forest 
+* trusts can extend outside the forest 
+
+**Objects**
+
+Object  | Description
+--------|------------
+user | enables network resource access for a user
+inetOrgPerson | ->similar to user account ->Used for compatibility with other directory services
+contacts | -> used primarily to assign e-mail addresses to external users -> does not enable network access
+groups | used to simplyfy the administrationof access control 
+compurts | enables authentication and autditing of computer access to resources
+printers | used to simplify the process of locating an contacting ot printers
+shared folders | enables users to search for shared folders based on properties
 
 
+## Active Directory Lab Build
 
+### Lab Overview and Requirements
 
-
-
-
-
-
-
-
-
+* Lab 
+ * 1 windows server 2019
+ * 2 Windows 10 Enterprise
+* Requirements (minimum)
+ * 60 GB Disk Space
+ * 16 GB RAM
+* I don't meet the requirements. what now?
 
 
 
