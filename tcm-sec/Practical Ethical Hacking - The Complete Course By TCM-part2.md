@@ -277,10 +277,30 @@ shared folders | enables users to search for shared folders based on properties
 * Think outside the box  
 
 
+## Attacking Active Directory: Post-Compromise Enumeration
 
 
+### PowerView Overview
 
+* download powerview from github
+* upload to any victim machine
 
+### Domain Enumeration with PowerView
+
+PowerView Cheat Sheet: https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993
+
+* ```powershell -ep bypass ```
+* . .\Powerview.ps1
+
+*  ```Get-NetDomain ```
+
+* ```Get-NetDomainController ```
+
+* ```Get-DomainPolicy ```
+
+* ```(Get-DomainPolicy)."system access"
+
+* ```
 
 
 
