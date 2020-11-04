@@ -290,7 +290,7 @@ shared folders | enables users to search for shared folders based on properties
 PowerView Cheat Sheet: https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed3117993
 
 * ```powershell -ep bypass ```
-* . .\Powerview.ps1
+* ```. .\Powerview.ps1 ```
 
 *  ```Get-NetDomain ```
 
@@ -298,7 +298,7 @@ PowerView Cheat Sheet: https://gist.github.com/HarmJ0y/184f9822b195c52dd50c379ed
 
 * ```Get-DomainPolicy ```
 
-* ```(Get-DomainPolicy)."system access"
+* ```(Get-DomainPolicy)."system access" ```
 
 * ```Get-NetUser ```
 
