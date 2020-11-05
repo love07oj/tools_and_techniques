@@ -133,6 +133,129 @@ cat $url/recon/final.txt | sort -u | httprobe -s -p https:443 |sed 's/https\?:\/
 
 
 
+## Testing the Top 10 Web Application Vulnerabilities
+
+
+### The OWASP Top 10 and OWASP Testing Checklist
+
+
+* OWASP Top 10: https://owasp.org/www-pdf-archive/OWASP_Top_10-2017_%28en%29.pdf.pdf
+
+* OWASP Testing Checklist: https://github.com/tanprathan/OWASP-Testing-Checklist
+
+* OWASP Testing Guide: https://owasp.org/www-project-web-security-testing-guide/assets/archive/OWASP_Testing_Guide_v4.pdf
+
+
+### Installing OWASP Juice Shop
+
+
+* Installing Docker on Kali: https://medium.com/@airman604/installing-docker-in-kali-linux-2017-1-fbaa4d1447fe
+
+* OWASP Juice Shop: https://github.com/bkimminich/juice-shop
+
+
+### Installing Foxy Proxy
+
+* foxyproxy standard for firefox
+
+### Exploring Burp Suite
+
+* turbo intruder
+* Active Scan ++
+* Retired js
+
+
+###  Introducing the Score Board
+
+* OWASP Score Board
+   * localhost:3000/#/score-board
+
+###  SQL Injection Attacks Overview 
+
+* **What is SQL Injection?**
+
+   * SQL injection is an attack in which malicious SQL statement are injected into a SQL database.
+   * SQL inkection is easy to avoid , but still happens often!
+   * If Successful, we can read sensitove databases , extract information, modify datavases, and potrntially even get a shell.
+ 
+ * **Common SQL Verbs** 
+  
+   * SQL statement begin with verbs. Let's take a look at a few common verbs:
+   
+      * SELECT - Retrives data from a table
+      * INSERT - Adds data to a table
+      * DELETE - Removes data from a table 
+      * UPDATE - Modifies data in a table
+      * DROP - Delete a table
+      * UNION - Combines data from multiple queries
+  
+  * **Other Common Terms**
+  
+    * A few extra terms to know:
+      
+      * WHERE - Filters records based on specific condition
+      * AND/OR/NOT - Filter records based on multiple conditions
+      * ORDER BY - Sorts records in assending/descending order
+      
+  * **Special Characters**
+  
+    * Lets talk some important special characters
+      
+      * ' and " - string delimiters
+      * --,/*,and # - comment delimiters
+      * * and % - wildcards
+      * ; - Ends SQL statement
+      * Plus a bunch of others that follow programmatic logic- =,+,>,<,(),etc  
+   
+* OWASP A1-Injection: https://www.owasp.org/index.php/Top_10-2017_A1-Injection
+
+
+### SQL Injection Walkthrough
+
+### SQL Injection Defenses 
+
+* Defense 1: Parameterized Statements
+   * Ensure imputs(parameters) are used safely in  SQL statement
+   * Example: " SELECT * FROM users WHERE email =?";
+   * Example: "SELECT * FROM users WHERE email = '" + email+ "';
+   
+* Defense 2: Santizing Input
+
+
+### Broken Authentication Overview and Defenses
+
+* OWASP A2-Broken Authentication: https://www.owasp.org/index.php/Top_10-2017_A2-Broken_Authentication
+
+### Testing for Broken Authentication
+
+### Sensitive Data Exposure Overview and Defenses
+
+* OWASP A3-Sensetive Data Exposure: https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure
+
+### 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
