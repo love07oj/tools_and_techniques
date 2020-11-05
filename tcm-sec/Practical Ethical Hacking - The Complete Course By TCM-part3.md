@@ -232,45 +232,94 @@ cat $url/recon/final.txt | sort -u | httprobe -s -p https:443 |sed 's/https\?:\/
 
 * OWASP A3-Sensetive Data Exposure: https://www.owasp.org/index.php/Top_10-2017_A3-Sensitive_Data_Exposure
 
-### 
+### Testing for Sensitive Data Exposure
+
+* use nmap
+
+```nmap --script=ssl-enum-ciphers -p 443 tesla.com ```
+
+### XML External Entities (XXE) Overview
+
+* OWASP A4-XML External Entities: https://www.owasp.org/index.php/Top_10-2017_A4-XML_External_Entities_(XXE)
+
+* attacking systms that parse XML input
+* Abuse SYSTEM entity and get malicious
+* Attacks include Denial of Service, local file disclosure, remote code execution, and more
 
 
+```xml
+<?xml version = "1.0" encoding="ISO-8859-1"?> 
+<!DOCTYPE gift[
+       <!ENTITY from "Love07oj&Heath">
+
+]>
+<gift>
+   <To>Frank</To>
+   <From>&from;</Form>
+   <Item>Pokemon Cards</Items>
+</gift>  
+```
+* XXE payloads
+      * payload all of thethings and look for classic XXE 
+      
+
+### XXE Attack and Defense
 
 
+* File Uploads
+   * try to upload a blacklisted files
+
+* Disable  DTD's (external entites)
 
 
+### Broken Access Control Overview
+
+* OWASP A5-Broken Access Control: https://www.owasp.org/index.php/Top_10-2017_A5-Broken_Access_Control
+
+* IDOR (insecure data object reference)
+
+### Broken Access Control Walkthrough
+
+* look for id field
+
+### Security Misconfiguration Attacks and Defenses
+
+* OWASP A6-Security Misconfigurations: https://www.owasp.org/index.php/Top_10-2017_A6-Security_Misconfiguration
+
+###  Cross-Site Scripting (XSS) Overview
+
+* OWASP A7-Cross Site Scripting: https://www.owasp.org/index.php/Top_10-2017_A7-Cross-Site_Scripting_(XSS)
+
+* DOM Based XSS: https://www.scip.ch/en/?labs.20171214
+
+* XSS Game: https://xss-game.appspot.com/
+
+* 
+```php
+<?php
+$username = $_GET['userename']
+echo = Hi $username!";
+?>
+```
+
+```index.php?username=<script>alert(1)</script> ```
 
 
+### Reflected XSS Walkthrough
+
+### Stored XSS Walkthrough
+
+* there may be a filtering going on in background 
 
 
+### Preventing XSS
+
+**How to Prevent XSS**
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+* 1. **ENCODING**
+      * ```<becomes&lt;
+      
 
 
 
